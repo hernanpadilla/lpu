@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabla y Copiar</title>
+<style>
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<table id="miTabla">
+  <tr>
+    <td>Celda 1</td>
+    <td>Celda 2</td>
+    <td>Celda 3</td>
+  </tr>
+  <tr>
+    <td>Celda 4</td>
+    <td>Celda 5</td>
+    <td>Celda 6</td>
+  </tr>
+</table>
+
+<p>Haz clic en una celda para copiar su valor:</p>
+<label for="V1">Variable V1:</label><br>
+<textarea id="V1" rows="4" cols="50"></textarea><br>
+
+<script>
+// Obtener la tabla
+var tabla = document.getElementById("miTabla");
+
+// Añadir un event listener a la tabla
+tabla.addEventListener("click", function(event) {
+  // Verificar si el objetivo del evento es una celda
+  if (event.target.tagName === "TD") {
+    // Obtener el texto de la celda y copiarlo al input
+    var valorCelda = event.target.textContent;
+    document.getElementById("V1").value = valorCelda;
+  }
+});
+</script>

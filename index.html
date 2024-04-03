@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ang="es">
+<head>
+  <link href="spf_favicon.png" rel="icon">
+  <title>Sistema LPU</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/paginabase.css">
+  <script>
+    function CargarExcelLpu() {
+    window.open("lpuusuarios/cargarexcelLpu.html");
+    window.close("index.html");
+    }
+    function CargarNodos() {
+    window.open("nodos/nodos.html");
+    window.close("index.html");
+    }
+  </script>   
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <img src="spf_favicon.png" />
+      <h4>Nodos</h4>    
+      <button onclick="CargarNodos()" class="btn btn-primary" >Probar Nodos</button>
+    </div>
+    <div class="column">
+      <img src="spf_favicon.png" />
+      <h4>Usuarios</h4>
+      <button onclick="CargarExcelLpu()" class="btn btn-primary" >Cargar Excel Usuarios</button>
+    </div>
+    <div class="column">
+      <img src="spf_favicon.png" />
+      <h4>Otros</h4>
+    </div>
+  </div>
+</body>
