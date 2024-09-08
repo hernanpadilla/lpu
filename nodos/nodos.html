@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../spf_favicon.png" rel="icon">
+    <title>Nodos</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/paginabase.css">
+    <script>
+        function abrirInicio() {
+        window.open("../index.html");
+        window.close("../nodos/nodos.html");
+        }
+    </script>   
+
+    <script type="text/javascript" async>
+    function nodo46(){
+        parent.document.getElementById("myFrame").src="https://10.2.3.46/spf/LPU";
+        document.querySelector('#nodo').innerText = 'Nodo 46';
+    }
+    
+    function nodo47(){
+        parent.document.getElementById("myFrame").src="https://10.2.3.47/spf/LPU";
+        document.querySelector('#nodo').innerText = 'Nodo 47';
+    }
+    
+    function test(){
+        $.ajax({url:"prueba.php", success:function(result){
+        $("div").text(result);}
+        })
+    }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <img src="../spf_favicon.png" width="30" height="30" align="left"/>
+            <h5><label name="nodo" id="nodo">Nodos</label></h5>
+            <iframe width="800" height="600" align="center" title="Nodo 46 47"
+            scrolling="auto" frameborder="0" id = "myFrame" allowtransparency="true">
+        </iframe> 
+        </div>
+        <div class="column">
+            <button type="button" class="btn btn-primary" onclick="nodo46();">46</button><br><br>
+            <button type="button" class="btn btn-primary" onclick="nodo47();">47</button><br><br>
+            <button onclick="abrirInicio()" class="btn btn-warning" >Inicio</button>
+        </div>
+    </div>
+</body>
+</html>

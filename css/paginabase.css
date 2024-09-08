@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.column {
+    flex-basis: 30%; /* Ajustar el ancho de las columnas según sea necesario */
+}
+
+/* Estilos opcionales para mejorar la apariencia */
+.column {
+    background-color: #d5e6f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

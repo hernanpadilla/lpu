@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../spf_favicon.png" rel="icon">
+<title>Lpu Usuarios</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../css/paginabase.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
+<style>
+div.dt-container {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 11px;
+
+}
+</style>
+
+<!--Genera los barra de Scroll de la Tabla junto con la libreria-->
+<!--datatables.net-->
+<script>
+new DataTable('#tablaNuevaPagina', {
+  scrollX: true,
+  scrollY: 300
+});
+</script>
+
+<!--Controles Cargar la Tabla de Usuarios-->
+<script>
+  $(document).ready(function() {
+    //var urlParams = new URLSearchParams(window.location.search);
+    //var datos = urlParams.get('datos');
+    //var datos = JSON.parse(sessionStorage.getItem("datos"));
+    //var datosDecodificados = JSON.parse(decodeURIComponent(datos));
+    var datos = localStorage.getItem('datos'); // O sessionStorage.getItem('datos');  
+    var datosDecodificados = JSON.parse(datos);  
+    var tablaNuevaPagina = $('#tablaNuevaPagina').DataTable({
+      data: datosDecodificados,         
+      columns: [
+        // Configurar las columnas de la tabla
+        { title: 'Usuario' },
+        { title: 'NombreApellido' },
+        { title: 'Cuit' },
+        { title: 'EstadoCuenta' },
+        { title: 'Roles' },
+        { title: 'LastLogon'}
+        // ...
+      ],
+          
+        scrollY: '50vh',
+        scrollCollapse: true,
+        //Deja la columna fija
+        fixedColumns: {
+        left: 0,
+        right: 1
+        },
+
+        //Muestra el Menu en Castellano 
+        "language": {
+        "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },                 
+      });
+  });
+</script>
+
+<!--Controles para realizar la comparacion-->
+<script>
+    function compararVariables() {
+      var V1 = document.getElementById("V1").value;
+      var V2 = document.getElementById("V2").value;
+      
+      var V1Array = V1.split(";");
+      var V2Array = V2.split(";");
+      
+      var diferenciaV1 = [];
+      var diferenciaV2 = [];
+      var enComun = [];
+      
+      for (var i = 0; i < V1Array.length; i++) {
+        if (!V2Array.includes(V1Array[i])) {
+          diferenciaV1.push(V1Array[i]);
+        } else {
+          enComun.push(V1Array[i]);
+        }
+      }
+      
+      for (var j = 0; j < V2Array.length; j++) {
+        if (!V1Array.includes(V2Array[j])) {
+          diferenciaV2.push(V2Array[j]);
+        } else {
+          enComun.push(V2Array[j]);
+        }
+      }
+      
+      document.getElementById("resultadoV1").innerHTML = "Valor Único en V1: " + diferenciaV1.join(", ");
+      document.getElementById("resultadoV2").innerHTML = "Valor Único en V2: " + diferenciaV2.join(", ");
+      document.getElementById("resultadoComun").innerHTML = "Elementos en común: " + enComun.join(", ");
+    }
+</script>
+
+<!--Botón Inicio-->
+<script>
+    function abrirInicio() {
+    window.open("../index.html");
+    window.close("../lpuusuarios/tablaconpaginacion.html");
+    }
+    function ArmarRolesLpu() {
+    window.open("../roleslpu/roleslpu.html");
+    window.close("../lpuusuarios/tablaconpaginacion.html");
+    }
+</script>  
+
+</head>
+<body>
+  <h4>Usuarios Lpu</h4>
+  <div class="column">
+  <table id="tablaNuevaPagina" class="table table-striped table-bordered" style="width:80%">
+            <!-- Estructura de la tabla -->
+  </table>
+  </div>
+  <div class="container">
+    <div class="column">
+      <h5>Para copiar valores Click en la Tabla</h5>
+      <label for="V1">Variable V1:</label><br>
+      <textarea id="V1" rows="4" cols="50"></textarea><br>
+      <label for="V2">Variable V2:</label><br>
+      <textarea id="V2" rows="4" cols="50"></textarea><br> 
+      <button onclick="compararVariables()" class="btn btn-success">Comparar</button>
+      <button id="borrar" class="btn btn-info">Borrar</button> 
+    </div>   
+    <div class="column">
+      <h5>Resultado</h5>
+      <p id="resultadoV1"></p>
+      <p id="resultadoV2"></p>
+      <p id="resultadoComun"></p><br>
+      <button onclick="abrirInicio()" class="btn btn-warning" >Inicio</button>
+  </div>
+  <div class="column">
+    <h5>Armar Roles</h5>
+    <button onclick="ArmarRolesLpu()" class="btn btn-primary" >Armar Roles</button>
+  </div>
+</div>
+
+<!--Copia el texto de la celda a un control-->
+<!--debe ir despues que se crea la Tabla en el Body-->
+<!--Borra los controles con un Botón-->
+<script>
+  // Obtener la tabla
+  var tabla = document.getElementById("tablaNuevaPagina");
+  // Obtener los inputs
+  var inputCelda1 = document.getElementById("V1");
+  var inputCelda2 = document.getElementById("V2");
+
+  tabla.addEventListener("click", function(event) {
+  // Verificar si el objetivo del evento es una celda  
+  if (event.target.tagName === "TD") {
+    // Obtener el texto de la celda
+    var valorCelda = event.target.textContent;   
+    // Verificar si el primer input está vacío
+    if (inputCelda1.value === "") {
+      // Si el primer input está vacío, copiar el valor en el primer input
+      inputCelda1.value = valorCelda;
+    } else {
+      // Si el primer input ya tiene texto, copiar el valor en el segundo input
+      inputCelda2.value = valorCelda;
+    }
+  }
+});
+
+var botonBorrar = document.getElementById("borrar");
+// Añadir un event listener al botón de borrar
+botonBorrar.addEventListener("click", function() {
+  // Borrar el contenido de ambos inputs
+  inputCelda1.value = "";
+  inputCelda2.value = "";
+  document.getElementById("resultadoV1").innerHTML = " " ;
+  document.getElementById("resultadoV2").innerHTML = " " ;
+  document.getElementById("resultadoComun").innerHTML = " " ;
+});
+</script>
+</body>
+</html>

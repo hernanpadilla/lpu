@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ang="es">
+<head>
+  <link href="../spf_favicon.png" rel="icon">
+  <title>Importar datos de Excel</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/paginabase.css">
+  
+  <style type="text/css">
+    #myTable{display:none;}
+  </style>
+    
+  <!-- Archivos para Procesar el Excel -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./scripts/abrirexcel.js"></script>
+  <script lang="javascript" src="./scripts/xlsx.full.min.js"></script>
+  
+  <!-- Copiar Tabla a otra página con formato -->
+  <script src="./scripts/copiatabla.js"></script>
+
+  <script>
+    function abrirInicio() {
+    window.open("../index.html");
+    window.close("../lpuusuarios/cargarexcelLpu.html");
+    }
+  </script>   
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <img src="../spf_favicon.png" />
+      <h4>Archivo Excel de Usuarios</h4>
+    </div>
+    <div class="column">
+      <input type="file" id="excelFile" class="btn btn-success"/>        
+      <table id="myTable" style="width:100%"></table> 
+    </div>
+    <div class="column">
+      <button onclick="abrirNuevaPagina()"class="btn btn-primary" >Abrir Tabla</button>
+      <button onclick="abrirInicio()" class="btn btn-warning" >Inicio</button>
+    </div>
+</div>
+</body>

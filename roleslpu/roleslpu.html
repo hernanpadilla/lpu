@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../spf_favicon.png" rel="icon">
+<title>Lpu Usuarios</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/paginabase.css">
+
+<!-- Copiar Asunto -->
+<script src="./scripts/roleslpu.js"></script>
+
+<script>
+    function abrirInicio() {
+    window.open("../index.html");
+    window.close("../roleslpu.html");
+    }
+</script>   
+</head>
+<body>
+<h1>Gestión de Roles</h1>
+<div class="container">
+    <div class="column">
+    <!-- Selector de Asunto -->
+    <label for="asunto">Seleccione un Asunto:</label>
+    <select id="asunto" class="selectpicker">
+        <option value="Alta">Alta Usuario</option>
+        <option value="Baja">Baja Usuario</option>
+        <option value="Agregar Roles">Agregar Roles</option>
+        <option value="Clave Nueva">Clave Nueva</option>
+        <option value="Usuario Bloqueado">Usuario Bloqueado</option>
+        <!-- Agrega más opciones según los asuntos disponibles -->
+    </select>
+    <!-- Botones de acción -->
+    <button onclick="agregarasunto()" class="btn btn-success">Agregar Asunto</button>
+    <button onclick="quitarasunto()" class="btn btn-danger">Quitar Asunto</button>
+
+    <!-- Lista de asuntos asignados -->
+    <ul id="lista-asunto">
+       <!-- Los asuntos asignados aparecerán aquí -->
+    </ul>
+    </div>
+    
+    
+    <div class="column">
+        <h2>Columna 3</h2>
+        <p>Datos para la columna 3.</p>
+        <button onclick="abrirInicio()" class="btn btn-warning" >Inicio</button>
+    </div>
+</div>
+</body>
+</html>
