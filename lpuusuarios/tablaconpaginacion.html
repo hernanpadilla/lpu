@@ -97,8 +97,8 @@ new DataTable('#tablaNuevaPagina', {
         }
       }
       
-      document.getElementById("resultadoV1").innerHTML = "Valor Único en V1: " + diferenciaV1.join(", ");
-      document.getElementById("resultadoV2").innerHTML = "Valor Único en V2: " + diferenciaV2.join(", ");
+      document.getElementById("resultadoV1").innerHTML = document.getElementById("usuario1").innerHTML+ "#" + diferenciaV1.join(", ");
+      document.getElementById("resultadoV2").innerHTML = document.getElementById("usuario2").innerHTML+ "#" + diferenciaV2.join(", ");
       document.getElementById("resultadoComun").innerHTML = "Elementos en común: " + enComun.join(", ");
     }
 </script>
@@ -110,9 +110,16 @@ new DataTable('#tablaNuevaPagina', {
     window.close("../lpuusuarios/tablaconpaginacion.html");
     }
     function ArmarRolesLpu() {
-    window.open("../roleslpu/roleslpu.html");
+    // Obtener el valor de usuario
+    var valorUsuario = document.getElementById("usuario").textContent;
+  
+    // Codificar el valor del usuario para la URL
+    var valorUsuarioEncoded = encodeURIComponent(valorUsuario);
+  
+    // Abrir la nueva página pasando el valor como parámetro en la URL
+    window.open("../roleslpu/roleslpu.html?usuario=" + valorUsuarioEncoded);
     window.close("../lpuusuarios/tablaconpaginacion.html");
-    }
+  }
 </script>  
 
 </head>
@@ -126,9 +133,9 @@ new DataTable('#tablaNuevaPagina', {
   <div class="container">
     <div class="column">
       <h5>Para copiar valores Click en la Tabla</h5>
-      <label for="V1">Variable V1:</label><br>
+      <p id="usuario1"></p>
       <textarea id="V1" rows="4" cols="50"></textarea><br>
-      <label for="V2">Variable V2:</label><br>
+      <p id="usuario2"></p>
       <textarea id="V2" rows="4" cols="50"></textarea><br> 
       <button onclick="compararVariables()" class="btn btn-success">Comparar</button>
       <button id="borrar" class="btn btn-info">Borrar</button> 
@@ -142,6 +149,7 @@ new DataTable('#tablaNuevaPagina', {
   </div>
   <div class="column">
     <h5>Armar Roles</h5>
+    <p id="usuario"></p>
     <button onclick="ArmarRolesLpu()" class="btn btn-primary" >Armar Roles</button>
   </div>
 </div>
@@ -157,6 +165,21 @@ new DataTable('#tablaNuevaPagina', {
   var inputCelda2 = document.getElementById("V2");
 
   tabla.addEventListener("click", function(event) {
+   
+    // Obtener la fila completa (parentElement te da el <tr>)
+    var fila = event.target.parentElement;
+    
+    // Obtener los valores de las primeras tres celdas
+    var usuario = fila.cells[0].textContent;
+    var nombreApellido = fila.cells[1].textContent;
+    var cuit = fila.cells[2].textContent;
+    
+    // Crear una cadena con los valores de los tres primeros campos
+    var textoUsuario = usuario + " - " + nombreApellido + " - " + cuit;
+    
+    // Colocar la cadena en el elemento con id "usuario"
+    document.getElementById("usuario").textContent = textoUsuario;
+
   // Verificar si el objetivo del evento es una celda  
   if (event.target.tagName === "TD") {
     // Obtener el texto de la celda
@@ -165,9 +188,11 @@ new DataTable('#tablaNuevaPagina', {
     if (inputCelda1.value === "") {
       // Si el primer input está vacío, copiar el valor en el primer input
       inputCelda1.value = valorCelda;
+      document.getElementById("usuario1").textContent = fila.cells[0].textContent;
     } else {
       // Si el primer input ya tiene texto, copiar el valor en el segundo input
       inputCelda2.value = valorCelda;
+      document.getElementById("usuario2").textContent = fila.cells[0].textContent;
     }
   }
 });
@@ -181,6 +206,9 @@ botonBorrar.addEventListener("click", function() {
   document.getElementById("resultadoV1").innerHTML = " " ;
   document.getElementById("resultadoV2").innerHTML = " " ;
   document.getElementById("resultadoComun").innerHTML = " " ;
+  document.getElementById("usuario").innerHTML = " " ;
+  document.getElementById("usuario1").innerHTML = " " ;
+  document.getElementById("usuario2").innerHTML = " " ;
 });
 </script>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ang="es">
+<html lang="es">
 <head>
   <link href="../spf_favicon.png" rel="icon">
   <title>Importar datos de Excel</title>
@@ -7,7 +7,8 @@
   <link rel="stylesheet" type="text/css" href="../css/paginabase.css">
   
   <style type="text/css">
-    #myTable{display:none;}
+    #myTable { display: none; }
+    #alertaCarga { display: none; color: green; }
   </style>
     
   <!-- Archivos para Procesar el Excel -->
@@ -20,9 +21,33 @@
 
   <script>
     function abrirInicio() {
-    window.open("../index.html");
-    window.close("../lpuusuarios/cargarexcelLpu.html");
+      window.open("../index.html");
+      window.close("../lpuusuarios/cargarexcelLpu.html");
     }
+
+    // Mostrar alerta cuando el archivo se cargue completamente
+    $(document).ready(function () {
+      $("#excelFile").change(function (event) {
+        var file = event.target.files[0];
+
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            
+            // Procesar el archivo Excel (esto ya debería estar en tu archivo abrirexcel.js)
+            // Muestra la tabla (suponiendo que se llena con los datos del Excel)
+            //$('#myTable').show();
+
+            // Mostrar un mensaje de confirmación cuando se procese el archivo
+            $('#alertaCarga').show().text("Archivo cargado y procesado exitosamente.");
+
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+    });
   </script>   
 </head>
 <body>
@@ -33,11 +58,15 @@
     </div>
     <div class="column">
       <input type="file" id="excelFile" class="btn btn-success"/>        
-      <table id="myTable" style="width:100%"></table> 
+      <table id="myTable"></table>
+      <h4><strong>
+      <div id="alertaCarga" class="text">Archivo cargado y procesado exitosamente</div>
+      </strong></h4> 
     </div>
     <div class="column">
-      <button onclick="abrirNuevaPagina()"class="btn btn-primary" >Abrir Tabla</button>
-      <button onclick="abrirInicio()" class="btn btn-warning" >Inicio</button>
+      <button onclick="abrirNuevaPagina()" class="btn btn-primary">Abrir Tabla</button>
+      <button onclick="abrirInicio()" class="btn btn-warning">Inicio</button>
     </div>
-</div>
+  </div>
 </body>
+</html>
